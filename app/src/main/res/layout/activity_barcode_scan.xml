@@ -15,8 +15,8 @@
         <!-- Camera Preview SurfaceView -->
         <SurfaceView
             android:id="@+id/surfaceView"
-            android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_width="350sp"
+            android:layout_height="300sp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
