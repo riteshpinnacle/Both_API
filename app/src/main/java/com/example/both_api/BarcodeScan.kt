@@ -340,6 +340,70 @@ class BarcodeScan : AppCompatActivity() {
 //        }
 //    }
 
+//    private var isBarcodeScanned = false
+//
+//    private fun checkBarcodeInDatabase(barcode: String) {
+//        // Check if the barcode has already been scanned
+//        if (isBarcodeScanned) {
+//            Toast.makeText(applicationContext, "Barcode has already been scanned.", Toast.LENGTH_SHORT).show()
+//            return
+//        }
+//
+//        lifecycleScope.launch {
+//            try {
+//                // Clear the text of all TextViews
+//                binding.txtMessage.text = ""
+//                binding.txtMessage1.text = ""
+//
+//                // Call API_1 to get the key for the scanned barcode
+//                val api1 = createAPI()
+//                val response1 = api1.getKeyValue(barcode)
+//                val key = response1.key
+//                binding.txtMessage.text = "Key for barcode $barcode: $key"
+//
+//                // Call API_2 with the obtained key from API_1
+//                val api2 = createAPI2()
+//                val response2 = api2.searchBarcode(BarcodeRequest(key))
+//                val result = response2.result
+//                binding.txtMessage1.text = "Result for barcode $barcode: $result"
+//
+//                // Set the flag to true indicating that the barcode has been scanned
+//                isBarcodeScanned = true
+//            } catch (e1: IOException) {
+//                // Show Toast message for network connectivity issue or server error from API_1
+//                Toast.makeText(applicationContext, "Network error occurred in API_1. Please try again later.", Toast.LENGTH_SHORT).show()
+//            } catch (e: HttpException) {
+//                if (e.code() == 404) {
+//                    // Barcode not found in API_1, send directly to API_2
+//                    try {
+//                        val api2 = createAPI2()
+//                        val response2 = api2.searchBarcode(BarcodeRequest(barcode))
+//                        val result = response2.result
+//                        binding.txtMessage.text = "Result for barcode $barcode from API_2: $result"
+//
+//                        // Set the flag to true indicating that the barcode has been scanned
+//                        isBarcodeScanned = true
+//                    } catch (e: IOException) {
+//                        // Show Toast message for network connectivity issue or server error from API_2
+//                        Toast.makeText(applicationContext, "Network error occurred in API_2. Please try again later.", Toast.LENGTH_SHORT).show()
+//                    } catch (e: Exception) {
+//                        // Handle other exceptions from API_2
+//                        binding.txtMessage.text = "An error occurred in API_2: ${e.message}"
+//                    }
+//                } else {
+//                    // Show Toast message for server error from API_1
+//                    Toast.makeText(applicationContext, "Server error occurred in API_1. Please try again later.", Toast.LENGTH_SHORT).show()
+//                }
+//            } catch (e: Exception) {
+//                // Handle other exceptions
+//                binding.txtMessage.text = "An error occurred: ${e.message}"
+//            } finally {
+//                // Reset the flag to false so that the barcode can be scanned again
+//                isBarcodeScanned = false
+//            }
+//        }
+//    }
+
     private var isBarcodeScanned = false
 
     private fun checkBarcodeInDatabase(barcode: String) {
@@ -363,7 +427,7 @@ class BarcodeScan : AppCompatActivity() {
 
                 // Call API_2 with the obtained key from API_1
                 val api2 = createAPI2()
-                val response2 = api2.searchBarcode(BarcodeRequest(key))
+                val response2 = api2.searchBarcode(BarcodeRequest(searchValue = barcode))
                 val result = response2.result
                 binding.txtMessage1.text = "Result for barcode $barcode: $result"
 
@@ -377,7 +441,7 @@ class BarcodeScan : AppCompatActivity() {
                     // Barcode not found in API_1, send directly to API_2
                     try {
                         val api2 = createAPI2()
-                        val response2 = api2.searchBarcode(BarcodeRequest(barcode))
+                        val response2 = api2.searchBarcode(BarcodeRequest(searchValue = barcode))
                         val result = response2.result
                         binding.txtMessage.text = "Result for barcode $barcode from API_2: $result"
 
@@ -385,7 +449,7 @@ class BarcodeScan : AppCompatActivity() {
                         isBarcodeScanned = true
                     } catch (e: IOException) {
                         // Show Toast message for network connectivity issue or server error from API_2
-                        Toast.makeText(applicationContext, "Network error occurred in API_2. Please try again later.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Network error occurred in API_2. Please check your internet connection or try again later.", Toast.LENGTH_SHORT).show()
                     } catch (e: Exception) {
                         // Handle other exceptions from API_2
                         binding.txtMessage.text = "An error occurred in API_2: ${e.message}"
@@ -403,6 +467,7 @@ class BarcodeScan : AppCompatActivity() {
             }
         }
     }
+
 
 
 

@@ -34,7 +34,7 @@ data class BarcodeResponse(val result: String)
 
 interface API_2 {
     @POST("searchBarr1")
-    suspend fun searchBarcode(@Body request: BarcodeRequest): BarcodeResponse
+    suspend fun searchBarcode(@Body searchValue: BarcodeRequest): BarcodeResponse
 }
 
 // Create a function to build the Retrofit instance for API_2
