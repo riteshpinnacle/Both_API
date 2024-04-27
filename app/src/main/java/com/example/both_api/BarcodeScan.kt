@@ -427,7 +427,7 @@ class BarcodeScan : AppCompatActivity() {
 
                 // Call API_2 with the obtained key from API_1
                 val api2 = createAPI2()
-                val response2 = api2.searchBarcode(BarcodeRequest(searchValue = barcode))
+                val response2 = api2.searchBarcode(BarcodeRequest(key))
                 val result = response2.result
                 binding.txtMessage1.text = "Result for barcode $barcode: $result"
 
