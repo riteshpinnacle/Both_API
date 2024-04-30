@@ -46,3 +46,35 @@ fun createAPI2(): API_2 {
 
     return retrofit.create(API_2::class.java)
 }
+
+data class BarcodeAdd(val barcode: String)
+data class BarcodeAuth(val message: String)
+interface API_3 {
+    @POST("barcodeadd")
+    suspend fun searchBarcode(@Body request: BarcodeAdd): BarcodeAuth
+}
+fun createAPI3(): API_3{
+    val retrofit = Retrofit.Builder()
+        .baseUrl(Base_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    return retrofit.create(API_3:: class.java)
+}
+
+data class BarcodeCountInput(val barcode: String)
+data class BarcodeCount(val count: Int)
+
+interface API_4 {
+    @POST("count")
+    suspend fun searchBarcode(@Body request: BarcodeCountInput): BarcodeCount
+}
+
+fun createAPI4(): API_4 {
+    val retrofit = Retrofit.Builder()
+        .baseUrl(Base_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    return retrofit.create(API_4::class.java)
+}
